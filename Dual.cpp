@@ -4,7 +4,7 @@
 
 //key for min = 1, key for max = -1
 
-void simplex(double s_matrix[4][4], int key)
+void simplex(double s_matrix[4][4], int key, char variable)
 {
     const unsigned short int basis_size = 3;
     const unsigned short int matrix_length = 4;
@@ -19,12 +19,12 @@ void simplex(double s_matrix[4][4], int key)
     std::cout << "        s0         ";
     for (int i = 0; i < basis_size; i++)
     {
-        std::cout << "x" << i + 1 << "          ";
+        std::cout << variable << basis[i] << "          ";
     }
     std::cout << "\n";
     for (int i = 0; i < matrix_length; ++i)
     {
-        if (i <= 2) std::cout << "x" << i + 3 << "  ";
+        if (i <= 2) std::cout << variable << free[i] << "  ";
         else std::cout << "F   ";
         for (int j = 0; j < matrix_width; ++j)
         {
@@ -93,12 +93,12 @@ void simplex(double s_matrix[4][4], int key)
                 std::cout << "         s0         ";
                 for (int i = 0; i < basis_size; i++)
                 {
-                    std::cout << "x" << basis[i] << "         ";
+                    std::cout << variable << basis[i] << "         ";
                 }
                 std::cout << "\n";
                 for (int i = 0; i < matrix_length; ++i)
                 {
-                    if (i <= 2) std::cout << "x" << free[i] << "  ";
+                    if (i <= 2) std::cout << variable << free[i] << "  ";
                     else std::cout << "F   ";
                     for (int j = 0; j < matrix_width; ++j)
                     {
@@ -168,12 +168,12 @@ void simplex(double s_matrix[4][4], int key)
                 std::cout << "         s0         ";
                 for (int i = 0; i < basis_size; i++)
                 {
-                    std::cout << "x" << basis[i] << "         ";
+                    std::cout << variable << basis[i] << "         ";
                 }
                 std::cout << "\n";
                 for (int i = 0; i < matrix_length; ++i)
                 {
-                    if (i <= 2) std::cout << "x" << free[i] << "  ";
+                    if (i <= 2) std::cout << variable << free[i] << "  ";
                     else std::cout << "F   ";
                     for (int j = 0; j < matrix_width; ++j)
                     {
@@ -198,12 +198,12 @@ void simplex(double s_matrix[4][4], int key)
         for (int i = 0; i < basis_size; ++i)
         {
             if (basis[i] <= basis_size)
-                std::cout << "x" << basis[i] << " = 0\n";
+                std::cout << variable << basis[i] << " = 0\n";
         }
         for (int i = 0; i < basis_size; ++i)
         {
             if (free[i] <= basis_size)
-                std::cout << "x" << free[i] << " = " << s_matrix[i][0] << "\n";
+                std::cout << variable << free[i] << " = " << s_matrix[i][0] << "\n";
         }
     }
 }
@@ -248,9 +248,9 @@ void dual_method()
     d_matrix[matrix_length - 1][0] = 0;
     
     std::cout << "--------------------Direct-task---------------\n\n";
-    simplex(s_matrix, -1);
+    simplex(s_matrix, -1, 'x');
     std::cout << "---------------------Dual-task----------------\n\n";
-    simplex(d_matrix, 1);
+    simplex(d_matrix, 1, 'y');
 }
 
 int main()
